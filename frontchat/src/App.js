@@ -1,9 +1,12 @@
 import { useState } from "react";
 import styled from "styled-components";
+import TodoList from "./list";
 
 const App = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const changeTitle = (e) => setTitle(e.target.value);
+  const changeContent = (e) => setContent(e.target.value);
 
   return (
     <>
@@ -15,9 +18,10 @@ const App = () => {
           </div>
         </Header>
         <InputDiv>
-          <InputSt type="text" placeholder="제목"></InputSt>
-          <InputSt type="text" placeholder="내용"></InputSt>
+          <InputSt type="text" placeholder="제목" onChange={changeTitle} />
+          <InputSt type="text" placeholder="내용" onChange={changeContent} />
         </InputDiv>
+        <TodoList title={title} content={content} />
       </Wrap>
     </>
   );
@@ -33,19 +37,19 @@ const Header = styled.div`
   height: 10vh;
   width: 100vw;
   color: #fe3a3566;
-
   display: flex;
   justify-content: space-between;
   text-indent: 2vw;
 `;
 const InputDiv = styled.div`
+  height: 15vh;
   display: flex;
   flex-direction: column;
   padding: 1vw 0 0 1vw;
   border: 2px solid #feee;
 `;
 const InputSt = styled.input`
-  height: 3vh;
+  height: 5vh;
   width: 40vw;
   margin-bottom: 2vh;
   font-size: 25px;
@@ -56,8 +60,10 @@ const InputSt = styled.input`
 const ButtonSt = styled.button`
   width: 5vw;
   height: 5vh;
-  border-radius: 3rem;
+  border-radius: 1rem;
+  font-size: 20px;
   color: #fe3a3566;
   background-color: #feee;
   border: 0.5px solid gainsboro;
+  margin-right: 2vw;
 `;
