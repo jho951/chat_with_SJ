@@ -4,8 +4,8 @@ export default function TodoList({ title, content }) {
   return (
     <>
       <Wrap>
-        <TitleFont> 제목 : {title}</TitleFont>
-        <ContentFont> 내용 : {content}</ContentFont>
+        <TitleFont>{title}</TitleFont>
+        <ContentFont>{content}</ContentFont>
         <ButtonWrap>
           <ButtonSt>수정</ButtonSt>
           <ButtonSt>삭제</ButtonSt>
