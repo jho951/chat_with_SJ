@@ -2,11 +2,24 @@ import { useState } from "react";
 import styled from "styled-components";
 import TodoList from "./list";
 
+// const dummy = [
+//   { title: "가", content: "나" },
+//   { title: "다", content: "라" },
+// ];
 const App = () => {
   const [todo, setTodo] = useState({ title: "", content: "" });
   const [list, setList] = useState([]);
-  const changeTitle = (e) => setTodo({ ...todo, title: e.target.value });
-  const changeContent = (e) => setTodo({ ...todo, content: e.target.value });
+
+  const submitTodo = (e) => {
+    if (e.target.name === "title") {
+      setTodo({ ...todo, title: e.target.value });
+    } else {
+      setTodo({ ...todo, content: e.target.value });
+    }
+  };
+  const onClickHandler = () => {
+    setList((prev) => [...prev, { title: todo.title, content: todo.content }]);
+  };
 
   return (
     <>
@@ -14,15 +27,28 @@ const App = () => {
         <Header>
           <h1>Todo List</h1>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <ButtonSt>전송</ButtonSt>
+            <ButtonSt onClick={onClickHandler}>전송</ButtonSt>
           </div>
         </Header>
         <InputDiv>
-          <InputSt type="text" placeholder="제목" onChange={changeTitle} />
-          <InputSt type="text" placeholder="내용" onChange={changeContent} />
+          <InputSt
+            name="title"
+            type="text"
+            placeholder="제목"
+            onChange={submitTodo}
+          />
+          <InputSt
+            name="conten"
+            type="text"
+            placeholder="내용"
+            onChange={submitTodo}
+          />
         </InputDiv>
-        {list.map((title, content) => {
-          return <TodoList title={title} content={content} />;
+        {/* {dummy.map((dummy) => {
+           <TodoList title={dummy.title} content={dummy.content} />;
+        })} */}
+        {list.map((list) => {
+          return <TodoList title={list.title} content={list.content} />;
         })}
       </Wrap>
     </>
