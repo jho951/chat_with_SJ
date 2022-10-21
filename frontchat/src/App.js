@@ -3,10 +3,10 @@ import styled from "styled-components";
 import TodoList from "./list";
 
 const App = () => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const changeTitle = (e) => setTitle(e.target.value);
-  const changeContent = (e) => setContent(e.target.value);
+  const [todo, setTodo] = useState({ title: "", content: "" });
+  const [list, setList] = useState([]);
+  const changeTitle = (e) => setTodo({ ...todo, title: e.target.value });
+  const changeContent = (e) => setTodo({ ...todo, content: e.target.value });
 
   return (
     <>
@@ -21,7 +21,9 @@ const App = () => {
           <InputSt type="text" placeholder="제목" onChange={changeTitle} />
           <InputSt type="text" placeholder="내용" onChange={changeContent} />
         </InputDiv>
-        <TodoList title={title} content={content} />
+        {list.map((title, content) => {
+          return <TodoList title={title} content={content} />;
+        })}
       </Wrap>
     </>
   );
