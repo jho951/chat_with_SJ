@@ -8,8 +8,13 @@ import { addList } from "./features/create/addListSlice";
 const App = () => {
   const [list, setList] = useState([]);
   const [todo, setTodo] = useState({ title: "", content: "" });
-  const changeTitle = (e) => setTodo({ ...todo, title: e.target.value });
-  const changeContent = (e) => setTodo({ ...todo, content: e.target.value });
+  const submitTodo = (e) => {
+    if (e.target.name === "title") {
+      setTodo({ ...todo, title: e.target.value });
+    } else {
+      setTodo({ ...todo, content: e.target.value });
+    }
+  };
 
   const addList = useSelector((state) => state.addList);
   const dispatch = useDispatch();
