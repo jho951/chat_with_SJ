@@ -2,16 +2,28 @@ import { useState, useLayoutEffect } from "react";
 import styled from "styled-components";
 import TodoList from "./list";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { addList } from "./features/create/addListSlice";
 
 const App = () => {
   const [list, setList] = useState([]);
   const [todo, setTodo] = useState({ title: "", content: "" });
+  const changeTitle = (e) => setTodo({ ...todo, title: e.target.value });
+  const changeContent = (e) => setTodo({ ...todo, content: e.target.value });
 
-  const submitTodo = (e) => {
-    if (e.target.name === "title") {
-      setTodo({ ...todo, title: e.target.value });
-    } else {
-      setTodo({ ...todo, content: e.target.value });
+  const addList = useSelector((state) => state.addList);
+  const dispatch = useDispatch();
+
+  const onAddList = () => {
+    if (todo.title && todo.content) {
+      dispatch(
+        addList({
+          title: todo.title,
+          content: todo.content,
+        })
+      );
+      setTodo({ ...todo, title: "" });
+      setTodo({ ...todo, content: "" });
     }
   };
 
@@ -35,7 +47,7 @@ const App = () => {
         <Header>
           <h1>Todo List</h1>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <ButtonSt onClick={onClickHandler}>전송</ButtonSt>
+            <ButtonSt onClick={onAddList}>전송</ButtonSt>
           </div>
         </Header>
         <InputDiv>
@@ -62,6 +74,7 @@ const App = () => {
     </>
   );
 };
+
 export default App;
 
 const Wrap = styled.div`
