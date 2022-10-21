@@ -15,8 +15,8 @@ export default function TodoList({ title, content }) {
   );
 }
 const Wrap = styled.div`
-  width: 20vw;
-  height: 30vh;
+  width: 15vw;
+  height: 20vh;
   display: flex;
   position: relative;
   flex-direction: column;
@@ -28,7 +28,7 @@ const Wrap = styled.div`
 `;
 const TitleFont = styled.p`
   font-size: 20px;
-  text-indent: 7vw;
+  text-indent: 1vw;
   color: gray;
 `;
 const ContentFont = styled.p`
@@ -50,6 +50,6 @@ const ButtonWrap = styled.div`
   display: flex;
   position: absolute;
   bottom: 0;
-  left: 5vw;
+  left: 2vw;
   margin: auto;
 `;

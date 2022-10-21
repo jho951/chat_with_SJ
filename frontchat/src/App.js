@@ -1,14 +1,11 @@
-import { useState } from "react";
+import { useState, useLayoutEffect } from "react";
 import styled from "styled-components";
 import TodoList from "./list";
+import axios from "axios";
 
-// const dummy = [
-//   { title: "가", content: "나" },
-//   { title: "다", content: "라" },
-// ];
 const App = () => {
-  const [todo, setTodo] = useState({ title: "", content: "" });
   const [list, setList] = useState([]);
+  const [todo, setTodo] = useState({ title: "", content: "" });
 
   const submitTodo = (e) => {
     if (e.target.name === "title") {
@@ -17,9 +14,20 @@ const App = () => {
       setTodo({ ...todo, content: e.target.value });
     }
   };
-  const onClickHandler = () => {
+
+  const onClickHandler = async () => {
     setList((prev) => [...prev, { title: todo.title, content: todo.content }]);
+    axios.post("http://localhost:5001/list", todo);
   };
+
+  const getTodoList = async () => {
+    const res = await axios.get("http://localhost:5001/list");
+    setList(res.data);
+  };
+
+  useLayoutEffect(() => {
+    getTodoList();
+  }, []);
 
   return (
     <>
@@ -38,23 +46,24 @@ const App = () => {
             onChange={submitTodo}
           />
           <InputSt
-            name="conten"
+            name="content"
             type="text"
             placeholder="내용"
             onChange={submitTodo}
           />
         </InputDiv>
-        {/* {dummy.map((dummy) => {
-           <TodoList title={dummy.title} content={dummy.content} />;
-        })} */}
-        {list.map((list) => {
-          return <TodoList title={list.title} content={list.content} />;
+
+        {list.map((index) => {
+          return (
+            <TodoList key="my" title={index.title} content={index.content} />
+          );
         })}
       </Wrap>
     </>
   );
 };
 export default App;
+
 const Wrap = styled.div`
   width: 100vw;
   height: 100vh;
