@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const addListSlice = createSlice({
   name: "addList",
-  initialState: [{ title: "와우", content: "hello!" }],
+  initialState: [],
   reducers: {
     addPost(state, action) {
       state.push(action.payload);
@@ -10,6 +10,6 @@ export const addListSlice = createSlice({
   },
 });
 
-export const { addList } = addListSlice.actions;
+export const { addPost } = addListSlice.actions;
 
 export default addListSlice.reducer;

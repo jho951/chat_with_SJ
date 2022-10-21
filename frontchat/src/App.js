@@ -3,7 +3,7 @@ import styled from "styled-components";
 import TodoList from "./list";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { addList } from "./features/create/addListSlice";
+import { addPost } from "./features/create/addListSlice";
 
 const App = () => {
   const [list, setList] = useState([]);
@@ -20,16 +20,16 @@ const App = () => {
   const dispatch = useDispatch();
 
   const onAddList = () => {
-    if (todo.title && todo.content) {
-      dispatch(
-        addList({
-          title: todo.title,
-          content: todo.content,
-        })
-      );
-      setTodo({ ...todo, title: "" });
-      setTodo({ ...todo, content: "" });
-    }
+    // if (todo.title && todo.content) {
+    dispatch(
+      addPost({
+        title: todo.title,
+        content: todo.content,
+      })
+    );
+    axios.post("http://localhost:5001/list", todo);
+    setTodo({ title: "", content: "" });
+    // }
   };
 
   const onClickHandler = async () => {
@@ -70,7 +70,7 @@ const App = () => {
           />
         </InputDiv>
 
-        {list.map((index) => {
+        {addList.map((index) => {
           return (
             <TodoList key="my" title={index.title} content={index.content} />
           );
